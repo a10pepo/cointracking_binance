@@ -1,0 +1,5 @@
+-- https://www.binance.com/en/my/pos/history/interest
+--
+ADA	60	Days	1.29842154	2021-04-07	Locked
+ADA	60	Days	1.38384155	2021-04-07	Locked
+BNB	60	Days	0.00027015	2021-04-07	Locked

@@ -1,0 +1,5 @@
+-- https://www.binance.com/en/my/saving/history/interest
+--
+2021-04-07 02:54:30	ETH	ETH	0.00000169	Flexible
+2021-04-07 02:49:26	BNB	BNB	0.00000712	Flexible
+2021-04-07 02:46:55	BTC	BTC	0.00000311	Flexible
