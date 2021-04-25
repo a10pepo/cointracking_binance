@@ -35,6 +35,7 @@ def parse_file(folder):
                         except:
                             print("ERROR:")
                             print(line)
+                            print(line_parts)
         if "Buy History" in filename:
             filename = os.path.join(folder, filename)
             with open(filename, "r") as a_file:
@@ -73,14 +74,18 @@ def parse_file(folder):
                     row["BuyCoin"]=row["BuyCoin"].replace(row["Executed"],"")
                     row["PayCoin"]=row["PayCoin"].replace(row["Amount"],"")
                     row["FeeCoin"]=row["FeeCoin"].replace(row["Fee"],"")
-                    e=Event(trans_type="Trade",buy_amt=row["Executed"],buy_cur=row["BuyCoin"],fee_amt=row["Fee"],fee_cur=row["FeeCoin"],sell_amt=row["Amount"],sell_cur=row["PayCoin"],comment="Binance Buy History",effective_date=parse_date(row["Date(UTC)"],'%Y-%m-%d %H:%M:%S'),exchange="Binance")
+                    print(row["Side"])
+                    if "BUY" in row["Side"]:
+                        e=Event(trans_type="Trade",buy_amt=row["Executed"],buy_cur=row["BuyCoin"],fee_amt=row["Fee"],fee_cur=row["FeeCoin"],sell_amt=row["Amount"],sell_cur=row["PayCoin"],comment="Binance Buy History",effective_date=parse_date(row["Date(UTC)"],'%Y-%m-%d %H:%M:%S'),exchange="Binance")
+                    if "SELL" in row["Side"]:
+                        e=Event(trans_type="Trade",buy_amt=row["Amount"],buy_cur=row["PayCoin"],fee_amt=row["Fee"],fee_cur=row["FeeCoin"],sell_amt=row["Executed"],sell_cur=row["BuyCoin"],comment="Binance Buy History",effective_date=parse_date(row["Date(UTC)"],'%Y-%m-%d %H:%M:%S'),exchange="Binance")
                     list_events.append(e)
         if "CONVERSIONS_BNB" in filename:
             filename = os.path.join(folder, filename)
             with open(filename, "r") as a_file:
                 df = pd.read_csv(filename)
                 for index, row in df.iterrows():
-                    e=Event(trans_type="Trade",buy_amt=row["Converted BNB"],buy_cur="BNB",fee_amt="BNB",fee_cur=row["Fee (BNB)"],sell_amt=row["Amount"],sell_cur=row["Coin"],comment="Binance BNB Conversion low capitals",effective_date=parse_date(row["Date"],'%Y-%m-%d %H:%M:%S'),exchange="Binance")
+                    e=Event(trans_type="Trade",buy_amt=row["Converted BNB"],buy_cur="BNB",fee_amt=row["Fee (BNB)"],fee_cur="BNB",sell_amt=row["Amount"],sell_cur=row["Coin"],comment="Binance BNB Conversion low capitals",effective_date=parse_date(row["Date"],'%Y-%m-%d %H:%M:%S'),exchange="Binance")
                     list_events.append(e)
         if "AIRDROPS" in filename:
             filename = os.path.join(folder, filename)
@@ -102,5 +107,6 @@ def parse_date(date_arg,date_format):
 def generate_file(events):
     file_output=os.path.join(os.path.dirname(__file__),"Binance_output_"+datetime.datetime.now().strftime('%m_%d_%Y_%H_%M_%S')+".csv")
     with open(file_output, "w+") as a_file:
+        a_file.write("Type,Buy Amount,Buy Currency,Sell Amount,Sell Currency,Fee,Fee Currency,Exchange,Trade-Group,Comment,Date\n")
         for event in events:
             a_file.write(event.to_string()+"\n")

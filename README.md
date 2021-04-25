@@ -3,6 +3,11 @@ Import data from Binance into Cointracking using CSV:
 
 Follow these steps to generate the files needed:
 
+**Trade History**
+https://www.binance.com/en/my/orders/exchange/usertrade
+
+Generate Trade history and place it in [/Files/Trading/part*](/Files/Trading/part*)
+
 **Staking Flexible:**
 
 https://www.binance.com/en/my/saving/history/interest
@@ -29,11 +34,6 @@ https://www.binance.com/en/my/wallet/history/deposit-crypto
 
 Export Deposit and place it in [/Files/Deposits/DEPOSIT_HISTORY_CRYPTO.xlsx](/Files/Deposits/DEPOSIT_HISTORY_CRYPTO.xlsx) 
 
-**Trade History**
-https://www.binance.com/en/my/orders/exchange/usertrade
-
-Generate Trade history and place it in [/Files/Trading/part*](/Files/Trading/part*)
-
 **Conversions BNB**
 https://www.binance.com/en/my/wallet/history/bnbconvert
 
@@ -43,6 +43,12 @@ Copy and paste results to [/Files/Conversions/CONVERSIONS_BNB.csv](Files/Convers
 https://www.binance.com/en/my/wallet/history/distribution
 
 Copy and paste results to [/Files/Airdrops/AIRDROPS.csv]([/Files/Airdrops/AIRDROPS.csv)
+
+**Conversions Not BNB** (Convert Tab)
+
+https://www.binance.com/en/my/wallet/exchange/buysell-history
+
+
 
 Once everything is setup just run main.py and you will get an output to be loaded in Cointracking.
 
